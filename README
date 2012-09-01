@@ -1,0 +1,18 @@
+
+   GFX Fun!
+
+=============
+  Description
+
+    A simple graphics project; used as an excuse to learn and work with opengl
+	and various graphics theory techniques, as well as various game or graphics 
+	related techniques (eg. data structures, storing map files, importing and
+	exporting models). This project is meant as nothing more than a learning
+	experience, as well as a portfolio item to show off my skills.
+
+
+=============
+  TODO
+
+    Display a cube
+	Setup premake to compile this under both UNIX and Windows
