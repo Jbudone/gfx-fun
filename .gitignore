@@ -1,3 +1,7 @@
 Makefile
 bin/
 *.swp
+*.sln
+*.suo
+*.sdf
+ipch/
