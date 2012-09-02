@@ -1,0 +1,1 @@
+/usr/bin/gcc   -Wall    CMakeFiles/Fractals.dir/progs/demos/Fractals/fractals.c.o  -o bin/Fractals -rdynamic -lGLU -lGL -lm -lSM -lICE -lX11 -lXext -lXrandr -lXxf86vm -lXi -lm libglut.so.3.9.0 -lGL -lm -lSM -lICE -lX11 -lXext -lXrandr -lXxf86vm -lXi -Wl,-rpath,/home/jbud/jdrive/jstuff/work/personal/gfx_fun/src/glsdk/freeglut 

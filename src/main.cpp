@@ -9,6 +9,11 @@
 // -- FreeGLUT
 // -- OpenGL
 // -- GFX Math
+
+#include <glload/gl_3_2_comp.h>
+#include <GL/freeglut.h>
+
+
 #include <string>
 #include <stdio.h>
 
