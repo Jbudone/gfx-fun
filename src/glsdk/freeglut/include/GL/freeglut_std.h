@@ -43,7 +43,7 @@
  */
 
 /* Define FREEGLUT_LIB_PRAGMAS to 1 to include library
- * pragmas or to 0 to exclude library pragmas.
+ * pragmas or to 1 to exclude library pragmas.
  * The default behavior depends on the compiler/platform.
  */
 #   ifndef FREEGLUT_LIB_PRAGMAS
@@ -57,10 +57,8 @@
 #  ifndef WIN32_LEAN_AND_MEAN
 #    define WIN32_LEAN_AND_MEAN 1
 #  endif
-#  ifndef NOMINMAX
-#    define NOMINMAX
-#  endif
-#   include <windows.h>
+#   define NOMINMAX
+#   include <Windows.h>
 
 /* Windows static library */
 #   ifdef FREEGLUT_STATIC
@@ -70,11 +68,7 @@
 
         /* Link with Win32 static freeglut lib */
 #       if FREEGLUT_LIB_PRAGMAS
-#           ifdef NDEBUG
-#              pragma comment (lib, "freeglut_static.lib")
-#           else
-#              pragma comment (lib, "freeglut_staticd.lib")
-#           endif
+#           pragma comment (lib, "freeglut_static.lib")
 #       endif
 
 /* Windows shared library (DLL) */
@@ -88,11 +82,7 @@
 
             /* Link with Win32 shared freeglut lib */
 #           if FREEGLUT_LIB_PRAGMAS
-#               ifdef NDEBUG
-#                   pragma comment (lib, "freeglut.lib")
-#               else
-#                   pragma comment (lib, "freeglutd.lib")
-#               endif
+#               pragma comment (lib, "freeglut.lib")
 #           endif
 
 #       endif
@@ -121,27 +111,14 @@
  */
 #define  FREEGLUT             1
 #define  GLUT_API_VERSION     4
-#define  GLUT_XLIB_IMPLEMENTATION 13
-/* Deprecated:
-   cf. http://sourceforge.net/mailarchive/forum.php?thread_name=CABcAi1hw7cr4xtigckaGXB5X8wddLfMcbA_rZ3NAuwMrX_zmsw%40mail.gmail.com&forum_name=freeglut-developer */
 #define  FREEGLUT_VERSION_2_0 1
+#define  GLUT_XLIB_IMPLEMENTATION 13
 
 /*
  * Always include OpenGL and GLU headers
  */
-/* Note: FREEGLUT_GLES1 and FREEGLUT_GLES2 are only used to cleanly
-   bootstrap headers inclusion here; use GLES constants directly
-   (e.g. GL_ES_VERSION_2_0) for all other needs */
-#ifdef FREEGLUT_GLES2
-#   include <EGL/egl.h>
-#   include <GLES2/gl2.h>
-#elif FREEGLUT_GLES1
-#   include <EGL/egl.h>
-#   include <GLES/gl.h>
-#else
-#   include <GL/gl.h>
-#   include <GL/glu.h>
-#endif
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 /*
  * GLUT API macro definitions -- the special key codes:
@@ -534,15 +511,15 @@ FGAPI int     FGAPIENTRY glutStrokeLength( void* font, const unsigned char* stri
 /*
  * Geometry functions, see freeglut_geometry.c
  */
+FGAPI void    FGAPIENTRY glutWireCube( GLdouble size );
+FGAPI void    FGAPIENTRY glutSolidCube( GLdouble size );
+FGAPI void    FGAPIENTRY glutWireSphere( GLdouble radius, GLint slices, GLint stacks );
+FGAPI void    FGAPIENTRY glutSolidSphere( GLdouble radius, GLint slices, GLint stacks );
+FGAPI void    FGAPIENTRY glutWireCone( GLdouble base, GLdouble height, GLint slices, GLint stacks );
+FGAPI void    FGAPIENTRY glutSolidCone( GLdouble base, GLdouble height, GLint slices, GLint stacks );
 
-FGAPI void    FGAPIENTRY glutWireCube( double size );
-FGAPI void    FGAPIENTRY glutSolidCube( double size );
-FGAPI void    FGAPIENTRY glutWireSphere( double radius, GLint slices, GLint stacks );
-FGAPI void    FGAPIENTRY glutSolidSphere( double radius, GLint slices, GLint stacks );
-FGAPI void    FGAPIENTRY glutWireCone( double base, double height, GLint slices, GLint stacks );
-FGAPI void    FGAPIENTRY glutSolidCone( double base, double height, GLint slices, GLint stacks );
-FGAPI void    FGAPIENTRY glutWireTorus( double innerRadius, double outerRadius, GLint sides, GLint rings );
-FGAPI void    FGAPIENTRY glutSolidTorus( double innerRadius, double outerRadius, GLint sides, GLint rings );
+FGAPI void    FGAPIENTRY glutWireTorus( GLdouble innerRadius, GLdouble outerRadius, GLint sides, GLint rings );
+FGAPI void    FGAPIENTRY glutSolidTorus( GLdouble innerRadius, GLdouble outerRadius, GLint sides, GLint rings );
 FGAPI void    FGAPIENTRY glutWireDodecahedron( void );
 FGAPI void    FGAPIENTRY glutSolidDodecahedron( void );
 FGAPI void    FGAPIENTRY glutWireOctahedron( void );
@@ -554,13 +531,9 @@ FGAPI void    FGAPIENTRY glutSolidIcosahedron( void );
 
 /*
  * Teapot rendering functions, found in freeglut_teapot.c
- * NB: front facing polygons have clockwise winding, not counter clockwise
  */
-/* TODO: doesn't work with GLES1 yet */
-#ifndef EGL_VERSION_1_0
 FGAPI void    FGAPIENTRY glutWireTeapot( GLdouble size );
 FGAPI void    FGAPIENTRY glutSolidTeapot( GLdouble size );
-#endif
 
 /*
  * Game mode functions, see freeglut_gamemode.c

@@ -38,12 +38,6 @@
 #define GLUT_KEY_NUM_LOCK           0x006D
 #define GLUT_KEY_BEGIN              0x006E
 #define GLUT_KEY_DELETE             0x006F
-#define GLUT_KEY_SHIFT_L            0x0070
-#define GLUT_KEY_SHIFT_R            0x0071
-#define GLUT_KEY_CTRL_L             0x0072
-#define GLUT_KEY_CTRL_R             0x0073
-#define GLUT_KEY_ALT_L              0x0074
-#define GLUT_KEY_ALT_R              0x0075
 
 /*
  * GLUT API Extension macro definitions -- behaviour when the user clicks on an "x" to close a window
@@ -83,8 +77,6 @@
 
 #define  GLUT_FULL_SCREEN                   0x01FF
 
-#define  GLUT_SKIP_STALE_MOTION_EVENTS      0x0204
-
 /*
  * New tokens for glutInitDisplayMode.
  * Only one GLUT_AUXn bit may be used at a time.
@@ -99,7 +91,6 @@
 
 /*
  * Context-related flags, see freeglut_state.c
- * Set the requested OpenGL version
  */
 #define  GLUT_INIT_MAJOR_VERSION            0x0200
 #define  GLUT_INIT_MINOR_VERSION            0x0201
@@ -130,7 +121,6 @@ FGAPI void    FGAPIENTRY glutExit         ( void );
  * Window management functions, see freeglut_window.c
  */
 FGAPI void    FGAPIENTRY glutFullScreenToggle( void );
-FGAPI void    FGAPIENTRY glutLeaveFullScreen( void );
 
 /*
  * Window-specific callback functions, see freeglut_callbacks.c
@@ -165,29 +155,16 @@ FGAPI void    FGAPIENTRY glutStrokeString( void* font, const unsigned char *stri
  */
 FGAPI void    FGAPIENTRY glutWireRhombicDodecahedron( void );
 FGAPI void    FGAPIENTRY glutSolidRhombicDodecahedron( void );
-FGAPI void    FGAPIENTRY glutWireSierpinskiSponge ( int num_levels, double offset[3], double scale );
-FGAPI void    FGAPIENTRY glutSolidSierpinskiSponge ( int num_levels, double offset[3], double scale );
-FGAPI void    FGAPIENTRY glutWireCylinder( double radius, double height, GLint slices, GLint stacks);
-FGAPI void    FGAPIENTRY glutSolidCylinder( double radius, double height, GLint slices, GLint stacks);
+FGAPI void    FGAPIENTRY glutWireSierpinskiSponge ( int num_levels, GLdouble offset[3], GLdouble scale );
+FGAPI void    FGAPIENTRY glutSolidSierpinskiSponge ( int num_levels, GLdouble offset[3], GLdouble scale );
+FGAPI void    FGAPIENTRY glutWireCylinder( GLdouble radius, GLdouble height, GLint slices, GLint stacks);
+FGAPI void    FGAPIENTRY glutSolidCylinder( GLdouble radius, GLdouble height, GLint slices, GLint stacks);
 
 /*
  * Extension functions, see freeglut_ext.c
  */
 typedef void (*GLUTproc)();
 FGAPI GLUTproc FGAPIENTRY glutGetProcAddress( const char *procName );
-
-/*
- * Multi-touch/multi-pointer extensions
- */
-
-#define GLUT_HAS_MULTI 1
-
-/* TODO: add device_id paramater,
-   cf. http://sourceforge.net/mailarchive/forum.php?thread_name=20120518071314.GA28061%40perso.beuc.net&forum_name=freeglut-developer */
-FGAPI void FGAPIENTRY glutMultiEntryFunc( void (* callback)( int, int ) );
-FGAPI void FGAPIENTRY glutMultiButtonFunc( void (* callback)( int, int, int, int, int ) );
-FGAPI void FGAPIENTRY glutMultiMotionFunc( void (* callback)( int, int, int ) );
-FGAPI void FGAPIENTRY glutMultiPassiveFunc( void (* callback)( int, int, int ) );
 
 /*
  * Joystick functions, see freeglut_joystick.c
@@ -218,21 +195,6 @@ void    glutJoystickGetCenter( int ident, float *axes );
 FGAPI void    FGAPIENTRY glutInitContextVersion( int majorVersion, int minorVersion );
 FGAPI void    FGAPIENTRY glutInitContextFlags( int flags );
 FGAPI void    FGAPIENTRY glutInitContextProfile( int profile );
-
-/* to get the typedef for va_list */
-#include <stdarg.h>
-
-FGAPI void    FGAPIENTRY glutInitErrorFunc( void (* vError)( const char *fmt, va_list ap ) );
-FGAPI void    FGAPIENTRY glutInitWarningFunc( void (* vWarning)( const char *fmt, va_list ap ) );
-
-/* OpenGL >= 2.0 support */
-FGAPI void    FGAPIENTRY glutSetVertexAttribCoord3(GLint attrib);
-FGAPI void    FGAPIENTRY glutSetVertexAttribNormal(GLint attrib);
-
-/* Mobile platforms lifecycle */
-FGAPI void    FGAPIENTRY glutInitContextFunc(void (* callback)());
-FGAPI void    FGAPIENTRY glutPauseFunc(void (* callback)());
-FGAPI void    FGAPIENTRY glutResumeFunc(void (* callback)());
 
 /*
  * GLUT API macro definitions -- the display mode definitions

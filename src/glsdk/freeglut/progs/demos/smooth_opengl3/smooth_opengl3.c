@@ -94,21 +94,14 @@ void checkError(const char *functionName)
 typedef ptrdiff_t ourGLsizeiptr;
 typedef char ourGLchar;
 
+#if defined(WIN32)
 #ifndef APIENTRY
 #define APIENTRY
 #endif
 
-
-#ifndef GL_ARB_vertex_array_object
-typedef void (APIENTRY *PFNGLGENVERTEXARRAYSPROC) (GLsizei n, GLuint *arrays);
-typedef void (APIENTRY *PFNGLBINDVERTEXARRAYPROC) (GLuint array);
-#endif
-#ifndef GL_VERSION_1_5
 typedef void (APIENTRY *PFNGLGENBUFFERSPROC) (GLsizei n, GLuint *buffers);
 typedef void (APIENTRY *PFNGLBINDBUFFERPROC) (GLenum target, GLuint buffer);
 typedef void (APIENTRY *PFNGLBUFFERDATAPROC) (GLenum target, ourGLsizeiptr size, const GLvoid *data, GLenum usage);
-#endif
-#ifndef GL_VERSION_2_0
 typedef GLuint (APIENTRY *PFNGLCREATESHADERPROC) (GLenum type);
 typedef void (APIENTRY *PFNGLSHADERSOURCEPROC) (GLuint shader, GLsizei count, const ourGLchar **string, const GLint *length);
 typedef void (APIENTRY *PFNGLCOMPILESHADERPROC) (GLuint shader);
@@ -125,10 +118,8 @@ typedef void (APIENTRY *PFNGLVERTEXATTRIBPOINTERPROC) (GLuint index, GLint size,
 typedef void (APIENTRY *PFNGLENABLEVERTEXATTRIBARRAYPROC) (GLuint index);
 typedef GLint (APIENTRY *PFNGLGETUNIFORMLOCATIONPROC) (GLuint program, const ourGLchar *name);
 typedef void (APIENTRY *PFNGLUNIFORMMATRIX4FVPROC) (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
-#endif
+#endif  /* defined(WIN32) */
 
-PFNGLGENVERTEXARRAYSPROC gl_GenVertexArrays;
-PFNGLBINDVERTEXARRAYPROC gl_BindVertexArray;
 PFNGLGENBUFFERSPROC gl_GenBuffers;
 PFNGLBINDBUFFERPROC gl_BindBuffer;
 PFNGLBUFFERDATAPROC gl_BufferData;
@@ -149,10 +140,8 @@ PFNGLENABLEVERTEXATTRIBARRAYPROC gl_EnableVertexAttribArray;
 PFNGLGETUNIFORMLOCATIONPROC gl_GetUniformLocation;
 PFNGLUNIFORMMATRIX4FVPROC gl_UniformMatrix4fv;
 
-void initExtensionEntries(void)
+void initExtensionEntries(void) 
 {
-   gl_GenVertexArrays = (PFNGLGENVERTEXARRAYSPROC) glutGetProcAddress ("glGenVertexArrays");
-   gl_BindVertexArray = (PFNGLBINDVERTEXARRAYPROC) glutGetProcAddress ("glBindVertexArray");
    gl_GenBuffers = (PFNGLGENBUFFERSPROC) glutGetProcAddress ("glGenBuffers");
    gl_BindBuffer = (PFNGLBINDBUFFERPROC) glutGetProcAddress ("glBindBuffer");
    gl_BufferData = (PFNGLBUFFERDATAPROC) glutGetProcAddress ("glBufferData");
@@ -197,17 +186,9 @@ enum {
 
 /* the name of the vertex buffer object */
 GLuint vertexBufferName;
-GLuint vertexArrayName;
 
 void initBuffer(void)
 {
-   /* Need to setup a vertex array as otherwise invalid operation errors can
-    * occur when accessing vertex buffer (OpenGL 3.3 has no default zero named
-    * vertex array) 
-    */
-   gl_GenVertexArrays(1, &vertexArrayName);
-   gl_BindVertexArray(vertexArrayName);
-
    gl_GenBuffers (1, &vertexBufferName);
    gl_BindBuffer (GL_ARRAY_BUFFER, vertexBufferName);
    gl_BufferData (GL_ARRAY_BUFFER, sizeof(varray), varray, GL_STATIC_DRAW);
