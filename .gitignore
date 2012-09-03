@@ -5,3 +5,10 @@ bin/
 *.suo
 *.sdf
 ipch/
+*.so
+*.a
+src/glsdk/freeglut/lib/
+src/glsdk/freeglut/obj/
+src/glsdk/freeglut/CMakeFiles/
+src/glsdk/glload/lib/
+src/glsdk/glload/obj/
