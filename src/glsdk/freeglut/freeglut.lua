@@ -1,6 +1,5 @@
 -- NOTE:
 --  Will this work without cmake ??   check this under both UNIX & windows
---  HAD to include fg_state.c because of errors; will this affect anything?
 
 if (_ACTION == "gmake") then
 	--os.execute("cmake .");
@@ -8,11 +7,12 @@ if (_ACTION == "gmake") then
 end
 
  project "freeglut"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "c++"
 	includedirs { "include", "src" }
 	targetdir "lib"
 	files {
+		"config.h",
 		"include/GL/*.h",
 		"src/fg_callbacks.c",
 		"src/fg_cursor.c",
@@ -32,7 +32,7 @@ end
 		"src/fg_misc.c",
 		"src/fg_overlay.c",
 		"src/fg_spaceball.c",
-		--"src/fg_state.c",
+		"src/fg_state.c",
 		"src/fg_stroke_mono_roman.c",
 		"src/fg_stroke_roman.c",
 		"src/fg_structure.c",
@@ -40,10 +40,13 @@ end
 		"src/fg_window.c",
 	}
 
-	defines { "FREEGLUT_STATIC", "_LIB", "FREEGLUT_LIB_PRAGMAS=0" }
+	defines { "FREEGLUT_STATIC", "_LIB", "FREEGLUT_LIB_PRAGMAS=0", "HAVE_CONFIG_H" }
 
 	configuration "windows"
 		defines "WIN32"
+		files {
+			"src/mswin/*.c",
+		}
 	
 	configuration "linux"
 		includedirs {"."}
