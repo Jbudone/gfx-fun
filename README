@@ -16,3 +16,16 @@
 
     Display a cube
 	Setup premake to compile this under both UNIX and Windows
+
+=============
+  COMPILING
+
+    1. cd src/glsdk/
+	2. premake4 [your compiler] .
+		ex.
+			premake4 gmake .  # for UNIX
+			premake4 vs2010 . # for Windows VS10
+	3. [make files]
+		ex.
+			make
+			msbuild gfx.sln
