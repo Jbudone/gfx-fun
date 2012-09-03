@@ -9,7 +9,7 @@ configurations { "Debug", "Release" }
 		files { "src/*.h", "src/*.cpp" }
 		location "bin"
 
-		UseLibs { "glload", "freeglut" }
+		UseLibs { "glload", "freeglut", "glutil" }
 		
 		configuration "Debug"
 			defines { "_DEBUG" }
