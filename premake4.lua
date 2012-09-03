@@ -6,7 +6,7 @@ configurations { "Debug", "Release" }
 	project "gfx"
 		language "C++"
 		includedirs { "src/glsdk/glload/source", "src/glsdk/glload/include", "src/glsdk/freeglut/include" }
-		libdirs { "src/glsdk/glload/lib", "src/glsdk/freeglut/lib" }
+		libdirs { "src/glsdk/glload/lib", "src/glsdk/freeglut/lib/**" }
 		files { "src/*.h", "src/*.cpp" }
 		location "bin"
 		kind "ConsoleApp"

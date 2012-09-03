@@ -41,12 +41,13 @@ end
 	}
 
 	defines { "FREEGLUT_STATIC", "_LIB", "FREEGLUT_LIB_PRAGMAS=0", "HAVE_CONFIG_H" }
+	includedirs {"."}
 
 	configuration "windows"
 		defines "WIN32"
 		files {
 			"src/mswin/*.c",
+			"src/util/xparsegeometry_repl.c",
 		}
 	
 	configuration "linux"
-		includedirs {"."}
