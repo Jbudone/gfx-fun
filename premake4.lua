@@ -4,42 +4,27 @@ configurations { "Debug", "Release" }
 
 	dofile("src/glsdk/links.lua")
 	project "gfx"
+		kind "ConsoleApp"
 		language "C++"
-		--includedirs { "src/glsdk/glload/source", "src/glsdk/glload/include", "src/glsdk/freeglut/include" }
-		--libdirs { "src/glsdk/glload/lib", "src/glsdk/freeglut/lib/**" }
-		includedirs {
-			"src/glsdk/freeglut/include",
-			"src/glsdk/glfw/include",
-			"src/glsdk/glimg/include",
-			"src/glsdk/glmesh/include",
-			"src/glsdk/glload/include",
-			"src/glsdk/glutil/include",
-		}
-		libdirs {
-			"src/glsdk/freeglut/include",
-			"src/glsdk/glfw/include",
-			"src/glsdk/glimg/include",
-			"src/glsdk/glmesh/include",
-			"src/glsdk/glload/include",
-			"src/glsdk/glutil/include",
-		}
 		files { "src/*.h", "src/*.cpp" }
 		location "bin"
-		kind "ConsoleApp"
+
+		UseLibs { "glload", "freeglut" }
 		
 		configuration "Debug"
-			defines { "DEBUG" }
+			defines { "_DEBUG" }
 			targetdir "bin/Debug"
+			flags "Symbols"
 
 		configuration "Release"
-			defines { "RELEASE" }
+			defines { "NDEBUG" }
 			targetdir "bin/Release"
+			flags { "OptimizeSpeed", "NoFramePointer", "ExtraWarnings", "NoEditAndContinue" };
 
 		configuration "windows"
 			defines { "WIN32" }
+			links { "glu32", "opengl32", "gdi32", "winmm", "user32" }
 
 		configuration "linux"
 			defines { "UNIX" }
-
-
-
+			links { "GL" }

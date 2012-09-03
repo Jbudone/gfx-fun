@@ -22,3 +22,14 @@ src/glsdk/freeglut/*.def
 src/glsdk/freeglut/*.rc
 *config.h
 *.pc
+src/glsdk/*/library/
+src/glsdk/*/lib/
+src/glsdk/*/Debug/
+src/glsdk/*/Release/
+src/glsdk/freeglut/progs/
+src/glsdk/freeglut/*.log
+src/glsdk/freeglut/*.status
+src/glsdk/*/obj/
+src/glsdk/freeglut/src/*.deps
+src/glsdk/freeglut/*stamp-h1
+src/glsdk/freeglut/libtool
